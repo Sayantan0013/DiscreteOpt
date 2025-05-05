@@ -3,7 +3,7 @@
 \usepackage{../ppackage}
 \usepackage{bbm}
 \usepackage{import}
-
+\usepackage{booktabs}
 
 
 
@@ -202,6 +202,24 @@ that this is a node-edge incidence matrix of a bipartite graph. Hence $A''$ is T
 bipartite then $A$ is totally unimodular. Prove the converse, i.e., if $A$ is totally unimodular then $G$
 is bipartite.
 
+\begin{solution}
+Let the incidence matrix of $G$ be totally unimodular and assume towards contradiction that $G$ is not bipartite. Then $G$ must contain a cycle of odd length. Let this cycle contain some vertices of $G$ $\{v_1, \hdots, v_{2k+1}\}$ for some $k \in \mathbb{N}$. Let the edges of this cycle be $\{e_1, \hdots, e_{2k+1}\}$. Now, consider the submatrix of $A$ indexed by $[v_1, \hdots, v_{2k+1}] \times [e_1, \hdots, e_{2k+1}]$.  
+Then this submatrix of the cycle (up to permutation of the columns) looks as follows: \\
+
+\begin{tabular}{l | l l l l l }
+ & $e_1$ & $e_2$ &$e_3$ & $\hdots$ & $e_{2k+1}$ \\
+ \midrule
+$v_1$ & 1 & 0 & 0 &  $\hdots$ & 0 \ 1 \\
+$v_2$ & 1 & 1 & 0 & $\hdots$ & 0 \ 0 \\
+$v_3$ & 0 & 1 & 1 & $\hdots$ &  0 \ 0  \\
+$\vdots$ & & $\ddots$ & & &  \\
+$v_{2k+1}$ & 0 & 0 & 0 & $\hdots$ & 1 \ 1
+\end{tabular}
+
+
+Then since the number of rows and columns is odd, we can do row reduction and end with one row that has a value 2 giving the whole submatrix a determinant of 2. This means $A$ is not submodular, a contradiction. 
+\end{solution}
+
 
 \item Given a graph $G=(V,E)$, the spanning tree polytope $PST(G)$ is defined as follows:
 $$PST (G) = \{x∈\setR^E : x(E(U)) ≤|U|−1 \ ∀U ⊂V, x(E) = |V|−1, x≥0\}.$$
@@ -214,6 +232,34 @@ Given $x^*$ a vertex of $PST (G)$, let $F= \{U ⊂V : x^*(E(U)) = |U|−1\}$.
 $span(F) = span\{χ^{E(A)},A∈F\}$, and similarly for L).
 \end{enumerate}
 
+
+
+\begin{solution}
+\begin{enumerate}
+\item We have:
+$$|A|−1 + |B|−1 = x*(E(A)) + x*(E(B)) ≤x*(E(A∪B)) + x*(E(A∩B))$$
+where the inequality follows since the edges in $E(A∩B)$ are counted twice and each other
+edge induced by $A$ or $B$ is also induced by $A∪B$. Now,
+$$x*(E(A∪B)) + x*(E(A∩B)) ≤|A∪B|−1 + |A∩B|−1 = |A|−1 + |B|−1$$
+hence all the inequalities hold with equality and in particular $x*(E(A∪B)) = |A∪B|−1$ and
+$x*(E(A∩B)) = |A∩B|−1$.
+\item  Similarly as in the proof seen before, for $A ∈ F$ we define $viol(A) = \{B ∈ L : A,B
+\text{ are intersecting}\}$. Assume by contradiction that $span(L)$ is a strict subset of $span(F)$, and
+let $A$ such that $χ^A ∈span(F) \setminus span(L)$ and $|viol(A)|$ is minimum. By maximality of $L$,
+$|viol(A)|≥1$ otherwise $L∪A$ would be a larger laminar family contained in $F$. Hence let
+$B ∈viol(A)$, we claim that $|viol(A∩B)|< |viol(A)|$. Indeed, let $C ∈viol(A∩B), C\neq B$,
+we have that $C\setminus A∩B,A∩B\setminus C,A∩B∩C$ are non-empty. Moreover, $C ∈L$, hence either
+$C ⊂B$, or $B ⊂C$ or $B∩C= \emptyset$. The last one is not possible as $A∩B∩C ⊂B∩C$. So assume
+$C ⊂B$: then if $C ⊂A$, $C ⊂A∩B$, a contradiction to $C\setminus A∩B$ being non-empty. If $A⊂C$,
+then $A⊂B$, a contradiction to $B ∈viol(A)$. If $A∩C= \emptyset$, then we get again a contradiction
+to $A∩B ∩C$ being non-empty. Hence in this case $A,C$ are intersecting and the claim is
+proved. In the case $B ⊂C$, the claim is proved similarly. With analogous arguments one
+proves that $|viol(A∪B)|< |viol(A)|$. Now, by minimality of $|viol(A)|$, we must have that
+$χ^{E(A∪B)},χ^{E(A∩B)} ∈span(L)$, but then $χ^{E(A)} = χ^{E(A∪B)} + χ^{E(A∩B)}−χ^{E(B)} ∈span(L)$, a
+contradiction. (Notice that the equality holds because $A,B ∈F$ as seen in the proof of part
+1).
+\end{enumerate}
+\end{solution}
 
 
 
